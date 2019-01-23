@@ -1,0 +1,83 @@
+[
+    {
+        "id": 661226,
+        "name": "Amuri",
+        "country": "FI",
+        "coord": {
+            "lon": 23.74317,
+            "lat": 61.500179
+        }
+    },
+    {
+        "id": 653281,
+        "name": "Kemi",
+        "country": "FI",
+        "coord": {
+            "lon": 24.563709,
+            "lat": 65.736412
+        }
+    },
+    {
+        "id": 653281,
+        "name": "Keimiö",
+        "country": "FI",
+        "coord": {
+            "lon": 24.563709,
+            "lat": 65.736412
+        }
+    },
+    {
+        "id": 630821,
+        "name": "Yli-Raumo",
+        "country": "FI",
+        "coord": {
+            "lon": 24.216669,
+            "lat": 65.849998
+        }
+    },
+    {
+        "id": 660562,
+        "name": "Porvoo",
+        "country": "FI",
+        "coord": {
+            "lon": 25.66667,
+            "lat": 60.400002
+        }
+    },
+    {
+        "id": 633739,
+        "name": "Tuorila",
+        "country": "FI",
+        "coord": {
+            "lon": 25.58333,
+            "lat": 60.450001
+        }
+    },
+    {
+        "id": 633592,
+        "name": "Tuusula",
+        "country": "FI",
+        "coord": {
+            "lon": 25,
+            "lat": 60.416672
+        }
+    },
+    {
+        "id": 645161,
+        "name": "Nahkela",
+        "country": "FI",
+        "coord": {
+            "lon": 24.950001,
+            "lat": 60.400002
+        }
+    },
+    {
+        "id": 660951,
+        "name": "Asikkala",
+        "country": "FI",
+        "coord": {
+            "lon": 25.58333,
+            "lat": 61.25
+        }
+    }
+]

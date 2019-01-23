@@ -1,0 +1,24 @@
+.main
+{
+    display: flex;
+    border: 1px solid gray;
+    margin-top: 5px;
+    height: 45px;
+    align-items: center;
+}
+
+.tempLabel
+{
+    width: 60%;
+    padding-left: 10%;
+}
+
+.tempValue
+{
+    width: 40%;
+}
+
+.proceedRight
+{
+    padding-right: 5px;
+}

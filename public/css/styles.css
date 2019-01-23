@@ -1,0 +1,11 @@
+.autocomplete-element
+{
+    background-color: rgb(240,240,240);
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.autocomplete-element:last-of-type
+{
+    border-bottom: 1px solid black;
+}
