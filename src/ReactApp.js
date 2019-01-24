@@ -4,19 +4,18 @@ import MasterView from './components/MasterView';
 import DetailView from './components/DetailView';
 import localForage from 'localforage';
 import lodash from 'lodash';
+import Header from './components/Header';
+import WeatherTeaser from './components/WeatherTeaser';
+import style from './ReactApp.css';
 
 export default class ReactApp extends Component {
     constructor(props)
     {
         super(props);
         this.state = {
-            searchedCityData: null,
-            detailViewData: null,
-            detailViewActive: false,
             savedCities: [],
         };
-        this.updateSearchCityWeather = this.updateSearchCityWeather.bind(this);
-        this.detailView = this.detailView.bind(this);
+        this.getCityWeather = this.getCityWeather.bind(this);
 
         this.initDB();
 
@@ -31,44 +30,16 @@ export default class ReactApp extends Component {
         });
     }
 
-    updateSearchCityWeather(cityData)
-    {
-        api.getCityWeather(cityData.id).then(weatherData => {
-            this.setState(
-                {
-                    searchedCityData:
-                    {
-                        cityData,
-                        weatherData,
-                        saved: false
-                    }
-                }
-            );
-        })
-    }
 
-    detailView(cityWeatherData)
-    {
-        this.setState({
-            detailViewData: cityWeatherData,
-            detailViewActive: true
-        });
-    }
 
     toggleSaveStatus(cityAndWeatherData)
     {
-        if((this.state.searchedCityData != null) && (cityAndWeatherData.cityData.name === this.state.searchedCityData.cityData.name))
-        {
-            this.setState({ searchedCityData: null });
-        }
-
         let savedCities = [];
         if(this.state.savedCities.find(element => element.cityData.id === cityAndWeatherData.cityData.id) == undefined)
         {
-            savedCities = lodash.cloneDeep(this.state.savedCities);
-            cityAndWeatherData.saved = true;
-            savedCities.push(cityAndWeatherData);
-            localForage.setItem(cityAndWeatherData.cityData.id, cityAndWeatherData).then(function () {
+            savedCities = lodash.cloneDeep(this.state.savedCities);            
+            savedCities.unshift(cityAndWeatherData);
+            localForage.setItem(cityAndWeatherData.cityData.id.toString(), cityAndWeatherData).then(function () {
                 console.log("item added to database")
               }).catch(function (err) {
                 // we got an error
@@ -76,10 +47,7 @@ export default class ReactApp extends Component {
               });
         }
         else
-        {
-            let detailViewData = lodash.cloneDeep(this.state.detailViewData);
-            detailViewData.saved = false;
-
+        {        
             this.state.savedCities.forEach(element => {
                 if(element.cityData.id != cityAndWeatherData.cityData.id)
                 {
@@ -91,7 +59,6 @@ export default class ReactApp extends Component {
             }).catch(function (err) {
                 console.log("item remove error");
             });
-            this.setState({ detailViewData });
         }
         this.setState({ savedCities });
     }
@@ -108,29 +75,28 @@ export default class ReactApp extends Component {
         console.log("Database init complete");
     }
 
+    getCityWeather(cityData)
+    {
+        api.getCityWeather(cityData.id).then(weatherData => {
+            
+            this.toggleSaveStatus({
+                cityData,
+                weatherData
+            });
+        })
+    }
 
-    render() {
-        let viewOutput = this.state.detailViewActive ?
-            (
-                <DetailView
-                    data={this.state.detailViewData}
-                    onClickBack={ () => this.setState({ detailViewActive: false })}
-                    toggleSavedStatus={ (cityId) => this.toggleSaveStatus(cityId)}
 
-                />
-            ) :
-            (
-                <MasterView
-                    apiGetCityWeather={ this.updateSearchCityWeather }
-                    searchedCityData={ this.state.searchedCityData }
-                    detailView={ this.detailView }
-                    savedCities={ this.state.savedCities }
-                />
-            );
-
+    render() {        
         return (
-            <div>
-                { viewOutput }
+            <div >
+                <Header getCityWeather={this.getCityWeather}/>
+                <div className={style.cardContainer}>
+                    {
+                        this.state.savedCities.map(city => {
+                        return <WeatherTeaser key={city.cityData.id} data={city} />
+                    })}  
+                </div>                              
             </div>
         )
     }

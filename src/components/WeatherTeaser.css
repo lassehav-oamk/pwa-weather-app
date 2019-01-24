@@ -1,24 +1,29 @@
 .main
 {
     display: flex;
-    border: 1px solid gray;
-    margin-top: 5px;
-    height: 45px;
-    align-items: center;
+    flex-direction: column;
+    width: 50%;    
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.marginBox
+{
+    border: 1px solid gray;    
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 2px 0px #bcbcbc;
 }
 
 .tempLabel
 {
-    width: 60%;
-    padding-left: 10%;
+    font-size: 30px;        
 }
 
 .tempValue
-{
-    width: 40%;
-}
-
-.proceedRight
-{
-    padding-right: 5px;
+{    
+    font-size: 26px;
 }

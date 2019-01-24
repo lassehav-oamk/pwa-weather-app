@@ -5,7 +5,7 @@ export default {
     getCityWeather: function(cityId)
     {
         return new Promise((resolve, reject) => {
-            axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&APPID=${parameters.openWeatherApiKey}&units=metric`)
+           axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&APPID=${parameters.openWeatherApiKey}&units=metric`)
                 .then(function (response) {
                     // handle success
                     console.log(response);
@@ -15,7 +15,8 @@ export default {
                     // handle error
                     console.log(error);
                     reject(error);
-                });                
+                });     
+
         });
         
     }

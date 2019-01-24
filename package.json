@@ -5,8 +5,7 @@
   "description": "A sample weather application with PWA technology",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "server": "webpack-dev-server --config ./webpack.config.js --mode development"
+    "build": "webpack --config webpack.config.js"
   },
   "author": "Lasse Haverinen",
   "license": "Apache-2.0",
@@ -16,11 +15,11 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
     "css-loader": "^2.1.0",
+    "http-server": "^0.11.1",
     "react-hot-loader": "^4.6.3",
     "style-loader": "^0.23.1",
     "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-cli": "^3.1.2"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",

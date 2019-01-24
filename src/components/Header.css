@@ -1,0 +1,16 @@
+.header
+{
+    background-color: blue;    
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    margin-bottom: 10px;
+    font-family: monospace;
+    font-size: 28px;    
+}
+
+.columnRow
+{
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
