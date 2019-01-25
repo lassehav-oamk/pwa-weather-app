@@ -34,16 +34,16 @@ export default class ReactApp extends Component {
     saveCity(cityAndWeatherData)
     {
         let savedCities = [];
+        localForage.setItem(cityAndWeatherData.cityData.id.toString(), cityAndWeatherData).then(function () {
+            console.log("item added to database")
+        }).catch(function (err) {
+            // we got an error
+            console.log("db error");
+        });
         if(this.state.savedCities.find(element => element.cityData.id === cityAndWeatherData.cityData.id) == undefined)
         {
             savedCities = lodash.cloneDeep(this.state.savedCities);            
-            savedCities.unshift(cityAndWeatherData);
-            localForage.setItem(cityAndWeatherData.cityData.id.toString(), cityAndWeatherData).then(function () {
-                console.log("item added to database")
-              }).catch(function (err) {
-                // we got an error
-                console.log("db error");
-              });
+            savedCities.unshift(cityAndWeatherData);            
             this.setState({ savedCities });
         }
         else

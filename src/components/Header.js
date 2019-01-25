@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import style from './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-const cityData = require('../data/current.city.list.json');
+const cityData = require('../data/small.city.list.json');
 import AutoComplete from './AutoComplete';
 
 class Header extends Component {
