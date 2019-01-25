@@ -2,18 +2,6 @@ import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
 import theme from './AutoComplete.css';
 
-// Imagine you have a list of languages that you'd like to autosuggest.
-const languages = [
-    {
-        name: 'C',
-        year: 1972
-    },
-    {
-        name: 'Elm',
-        year: 2012
-    },
-];
-
 
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
@@ -23,7 +11,7 @@ const getSuggestionValue = suggestion => suggestion.name;
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
   <div>
-    {suggestion.name}
+    {suggestion.name}, {suggestion.country}
   </div>
 );
 
@@ -52,7 +40,7 @@ export default class componentName extends Component {
     getSuggestions(value) {
         const inputValue = value.trim().toLowerCase();
         const inputLength = inputValue.length;
-
+        
         return inputLength === 0 ? [] : this.props.options.filter(city =>
         city.name.toLowerCase().slice(0, inputLength) === inputValue
         );
