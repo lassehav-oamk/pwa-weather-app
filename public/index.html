@@ -7,7 +7,6 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/styles.css" />
         <title>PWA Weather</title>
     </head>
     <body>
@@ -15,5 +14,22 @@
             <div id="react-target"></div>
         </div>        
         <script type="text/javascript" src="js/bundle.js"></script>
+        <script>
+            if (navigator.serviceWorker) {
+                    console.log('Service worker is supported!');
+                    console.log('Registering service worker...')
+                    navigator.serviceWorker.register('./service-worker.js', { scope: './' })
+                        .then(function (registration) {
+                            console.log('Service worker registered');
+                            console.log(registration);
+                        })
+                        .catch(function (e) {
+                            console.log('Service worker register failed, error info below');
+                            console.error(e);
+                        })
+                } else {
+                    console.log('Service Worker is not supported in this browser.');
+                }
+        </script>
     </body>
 </html>

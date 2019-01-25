@@ -2,13 +2,13 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-    devtool: 'eval-source-map',
+    devtool: false,//'eval-source-map',
     entry: ['@babel/polyfill', './src/main.js'],
     output: {
         filename: 'bundle.js',        
         path: path.resolve(__dirname, 'public/js')        
     },
-    mode: "development",
+    mode: "production",
     watch: true,
     module: {
         rules: [

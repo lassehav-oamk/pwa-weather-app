@@ -23,13 +23,13 @@ export default class ReactApp extends Component {
             currentCities.push(value);
             this.setState({ savedCities: currentCities });
         }).then(function() {
-            console.log('Iteration has completed');
+            console.log('DB load has completed');
         }).catch(function(err) {
             console.log(err);
         });
+
+        console.log("Application starting");
     }
-
-
 
     saveCity(cityAndWeatherData)
     {
