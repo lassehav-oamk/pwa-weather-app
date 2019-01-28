@@ -1,4 +1,4 @@
-var CACHE_VERSION = 'app-v4';
+var CACHE_VERSION = 'app-v1';
 var CACHE_FILES = [
     '/',
     '/index.html',
@@ -39,19 +39,19 @@ self.addEventListener('fetch', function (event) {
                     return fetch(event.request);
                 }
             })
-                // Catch the error created if no network connection availble
-                .catch(function () {
-                    // If the request was of an .html file, then return small html error snipper as a response
-                    if (event.request.url.endsWith('.html')) {
-                        return new Response('<p>Network offline and resource not in cache, sorry pal!</p>', {
-                            headers: { 'Content-Type': 'text/html' }
-                        });
-                    }
-                    else // return null for all other file types than .html
-                    {
-                        return null;
-                    }
-                })
+            // Catch the error created if no network connection availble
+            .catch(function () {
+                // If the request was of an .html file, then return small html error snipper as a response
+                if (event.request.url.endsWith('.html')) {
+                    return new Response('<p>Network offline and resource not in cache, sorry pal!</p>', {
+                        headers: { 'Content-Type': 'text/html' }
+                    });
+                }
+                else // return null for all other file types than .html
+                {
+                    return null;
+                }
+            })
         })
     );
 
