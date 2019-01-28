@@ -39,8 +39,7 @@ export default class componentName extends Component {
     // Teach Autosuggest how to calculate suggestions for any given input value.
     getSuggestions(value) {
         const inputValue = value.trim().toLowerCase();
-        const inputLength = inputValue.length;
-        
+        const inputLength = inputValue.length;        
         return inputLength === 0 ? [] : this.props.options.filter(city =>
         city.name.toLowerCase().slice(0, inputLength) === inputValue
         );
