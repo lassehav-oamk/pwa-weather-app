@@ -5,7 +5,6 @@ import lodash from 'lodash';
 import Header from './components/Header';
 import WeatherTeaser from './components/WeatherTeaser';
 import style from './ReactApp.css';
-let moment = require('moment');
 
 export default class ReactApp extends Component {
     constructor(props)
@@ -15,20 +14,21 @@ export default class ReactApp extends Component {
             savedCities: [],
         };
         this.getCityWeather = this.getCityWeather.bind(this);
+        this.updateCityWeather = this.updateCityWeather.bind(this);
 
         this.initDB();
 
-        localForage.iterate((value, key, iterationNumber) => {
+        /* Load items from database and populate the current state */
+        localForage.iterate((cityDataFromDb, key, iterationNumber) => {
             let currentCities = lodash.cloneDeep(this.state.savedCities);
-            currentCities.push(value);
+            currentCities.push(cityDataFromDb);
             this.setState({ savedCities: currentCities });
+            this.updateCityWeather(cityDataFromDb);
         }).then(function() {
-            console.log('DB load has completed');
+            console.log('DB initial load has completed');
         }).catch(function(err) {
             console.log(err);
         });
-
-        console.log("Application starting");
     }
 
     saveCity(cityAndWeatherData)
@@ -66,13 +66,36 @@ export default class ReactApp extends Component {
 
     getCityWeather(cityData)
     {
-        api.getCityWeather(cityData.id).then(weatherData => {
-            const unixTimeNow = moment().unix();
+        api.getCityWeather(cityData.id).then(weatherData => {            
             this.saveCity({
                 cityData,
-                weatherData,
-                unixTimeNow
+                weatherData                
             });
+        })
+    }
+
+    updateCityWeather(cityAndWeatherData)
+    {        
+        api.getCityWeather(cityAndWeatherData.cityData.id).then(updatedWeatherData => {            
+            let savedCities = [];
+            let stateIndex = this.state.savedCities.findIndex(
+                element => element.cityData.id === cityAndWeatherData.cityData.id
+            );
+
+            if (stateIndex != undefined) {
+                /* clone the current elements, state should be immutable */
+                savedCities = lodash.cloneDeep(this.state.savedCities);
+                savedCities[stateIndex].weatherData = updatedWeatherData;
+
+                /* Update data in the database */
+                localForage.setItem(cityAndWeatherData.cityData.id.toString(), cityAndWeatherData).then(function () {
+                    console.log(`${cityAndWeatherData.cityData.name} item update to database`);
+                }).catch(function (err) {                    
+                    console.log("db update error");
+                });
+                /* Update the state with the update data */
+                this.setState({ savedCities });
+            }                       
         })
     }
 
@@ -81,10 +104,11 @@ export default class ReactApp extends Component {
         return (
             <div >
                 <Header getCityWeather={this.getCityWeather}/>
+                <div>Click items to update</div>
                 <div className={style.cardContainer}>
                     {
                         this.state.savedCities.map(city => {
-                        return <WeatherTeaser key={city.cityData.id} data={city} />
+                            return <WeatherTeaser key={city.cityData.id} data={city} update={this.updateCityWeather}/>
                     })}  
                 </div>                              
             </div>
