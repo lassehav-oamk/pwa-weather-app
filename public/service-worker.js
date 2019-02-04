@@ -4,8 +4,8 @@ if (workbox) {
     console.log(`Yay! Workbox is loaded 🎉`);
 
     workbox.precaching.precacheAndRoute([        
-        { url: '/', revision: '1' },
-        { url: '/index.html', revision: '1' },
+        { url: '/', revision: '2' },
+        { url: '/index.html', revision: '2' },
     ]);
 
     workbox.routing.registerRoute(
